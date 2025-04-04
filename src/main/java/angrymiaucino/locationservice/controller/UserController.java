@@ -1,5 +1,6 @@
 package angrymiaucino.locationservice.controller;
 
+import angrymiaucino.locationservice.common.dto.UserDTO;
 import angrymiaucino.locationservice.repository.entity.User;
 import angrymiaucino.locationservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +21,17 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
+    public Optional<UserDTO> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @GetMapping("/username/{username}")
-    public User getUserByUsername(@PathVariable String username) {
+    public UserDTO getUserByUsername(@PathVariable String username) {
         return userService.getUserByUsername(username);
     }
 
