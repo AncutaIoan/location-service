@@ -1,7 +1,7 @@
 package angrymiaucino.locationservice.controller;
 
+import angrymiaucino.locationservice.common.dto.CreateUserRequest;
 import angrymiaucino.locationservice.common.dto.UserDTO;
-import angrymiaucino.locationservice.repository.entity.User;
 import angrymiaucino.locationservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +36,8 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public UserDTO createUser(@RequestBody CreateUserRequest createUserRequest) {
+        return userService.saveUser(createUserRequest);
     }
 
     @DeleteMapping("/{id}")
