@@ -1,0 +1,22 @@
+type Place {
+    id: ID!
+    name: String!
+    description: String
+    latitude: Float
+    longitude: Float
+    createdAt: String
+}
+
+type Query {
+    allPlaces: [Place]
+    placeById(id: ID!): Place
+}
+
+type Mutation {
+    createPlace(
+        name: String!
+        description: String
+        latitude: Float!
+        longitude: Float!
+    ): Place
+}

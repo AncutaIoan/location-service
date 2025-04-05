@@ -1,0 +1,14 @@
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{
+  "query": "{ allPlaces { id name } }"
+}
+
+###
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { createPlace(name: \"Eiffel Tower\", description: \"Iconic Paris landmark\", latitude: 48.8584, longitude: 2.2945) { id name description latitude longitude createdAt } }"
+}

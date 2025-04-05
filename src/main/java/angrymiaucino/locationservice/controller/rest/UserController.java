@@ -1,4 +1,4 @@
-package angrymiaucino.locationservice.controller;
+package angrymiaucino.locationservice.controller.rest;
 
 import angrymiaucino.locationservice.common.dto.CreateUserRequest;
 import angrymiaucino.locationservice.common.dto.UserDTO;
