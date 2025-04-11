@@ -18,27 +18,29 @@ repositories {
 }
 
 dependencies {
+    // Web and Reactive support
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
+    // Security
     implementation("org.springframework.boot:spring-boot-starter-security")
 
+    // GraphQL support
     implementation("org.springframework.boot:spring-boot-starter-graphql")
-
     implementation("com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0")
 
+    // PostgreSQL and R2DBC
     runtimeOnly("org.postgresql:r2dbc-postgresql")
-
-    runtimeOnly("org.postgresql:postgresql")
     implementation("org.springframework.data:spring-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 
+    // Caching library (Infinispan)
     implementation("org.infinispan:infinispan-core:15.2.0.Final")
-
 
     // Test dependencies
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
+
 
 
 tasks.withType<Test> {
