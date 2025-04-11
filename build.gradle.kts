@@ -23,11 +23,16 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-graphql")
 
-    //GRAPHQL playground
+    // GRAPHQL playground
     implementation("com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0")
 
     runtimeOnly("org.postgresql:postgresql")
 
+    // Hibernate Spatial for PostGIS support
+    implementation("org.hibernate:hibernate-spatial:6.2.7.Final") // Adjust to your Hibernate version
+
+    // JTS Topology Suite for geometry (point) handling
+    implementation("org.locationtech.jts:jts-core:1.19.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
