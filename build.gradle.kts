@@ -27,20 +27,19 @@ dependencies {
     implementation("com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0")
 
     runtimeOnly("org.postgresql:r2dbc-postgresql")
-    runtimeOnly("org.postgresql:postgresql")
 
+    runtimeOnly("org.postgresql:postgresql")
+    implementation("org.springframework.data:spring-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 
     implementation("org.infinispan:infinispan-core:15.2.0.Final")
 
-    implementation("org.locationtech.jts:jts-core:1.19.0")
 
-    // PostGIS driver to handle PostGIS types (e.g., PGgeometry)
-    implementation("net.postgis:postgis-jdbc:2024.1.0")
-
+    // Test dependencies
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
+
 
 tasks.withType<Test> {
     useJUnitPlatform()
