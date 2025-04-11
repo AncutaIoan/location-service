@@ -1,24 +1,18 @@
 package angrymiaucino.locationservice.repository.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
-@Table(name = "users")
+@Table("users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
     private String email;
     private String password;
 
-    // Constructors
     public User() {
     }
 
@@ -28,7 +22,6 @@ public class User {
         this.password = password;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

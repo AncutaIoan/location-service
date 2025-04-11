@@ -2,12 +2,16 @@ package angrymiaucino.locationservice.service;
 
 import angrymiaucino.locationservice.repository.PlaceRepository;
 import angrymiaucino.locationservice.repository.entity.Place;
+//import org.locationtech.jts.geom.Coordinate;
+//import org.locationtech.jts.geom.GeometryFactory;
+//import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class PlaceService {
@@ -18,15 +22,17 @@ public class PlaceService {
         this.placeRepository = placeRepository;
     }
 
-    public List<Place> findAll() {
+    @Cacheable(value = "${infinispan.embedded.cache.locationCache}", key = "'allPlaces'")
+    public Flux<Place> findAll() {
         return placeRepository.findAll();
     }
 
-    public Place findById(Long id) {
-        return placeRepository.findById(id).orElseThrow(() -> new RuntimeException("Place with id " + id + " not found"));
+    @Cacheable(value = "${infinispan.embedded.cache.locationCache}", key = "#id")
+    public Mono<Place> findById(Long id) {
+        return placeRepository.findById(id).switchIfEmpty(Mono.error(new RuntimeException("Place with id " + id + " not found")));
     }
 
-    public Place createPlace(String name, String description, Double lat, Double lng) {
+    public Mono<Place> createPlace(String name, String description, Double lat, Double lng) {
         GeometryFactory geometryFactory = new GeometryFactory();
         Point location = geometryFactory.createPoint(new Coordinate(lat, lng));
 

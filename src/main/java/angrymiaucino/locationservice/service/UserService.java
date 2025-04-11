@@ -5,54 +5,46 @@ import angrymiaucino.locationservice.common.dto.UserDTO;
 import angrymiaucino.locationservice.repository.UserRepository;
 import angrymiaucino.locationservice.repository.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream()
-                .map(user -> new UserDTO(user.getId(), user.getUsername(), user.getEmail()))
-                .collect(Collectors.toList());
+    public Flux<UserDTO> getAllUsers() {
+        return userRepository.findAll()
+                .map(user -> new UserDTO(user.getId(), user.getUsername(), user.getEmail()));
     }
 
-    public Optional<UserDTO> getUserById(Long id) {
+    public Mono<UserDTO> getUserById(Long id) {
         return userRepository.findById(id)
                 .map(user -> new UserDTO(user.getId(), user.getUsername(), user.getEmail()));
     }
 
-    public UserDTO getUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user != null) {
-            return new UserDTO(user.getId(), user.getUsername(), user.getEmail());
-        }
-        return null;
+    public Mono<UserDTO> getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .map(u -> new UserDTO(u.getId(), u.getUsername(), u.getEmail()));
     }
 
-    public UserDTO saveUser(CreateUserRequest createUserRequest) {
+    public Mono<UserDTO> saveUser(CreateUserRequest createUserRequest) {
         User user = new User(createUserRequest.username(), createUserRequest.email(), passwordEncoder.encode(createUserRequest.password()));
 
-        User savedUser =  userRepository.save(user);
-
-        return new UserDTO(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
-
+        return userRepository.save(user)
+                .map(u -> new UserDTO(u.getId(), u.getUsername(), u.getEmail()));
     }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public Mono<Void> deleteUser(Long id) {
+        return userRepository.deleteById(id);
     }
 }

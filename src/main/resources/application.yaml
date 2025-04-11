@@ -1,16 +1,36 @@
 spring:
   application:
     name: location-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+
+  # R2DBC Configuration for reactive PostgreSQL database
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
     username: postgres
     password: 12345
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    pool:
+      initial-size: 10
+      max-size: 20
+
+  # Infinispan Cache Configuration (this stays the same for reactive)
+  infinispan:
+    embedded:
+      enabled: true
+      cache:
+        locationCache:
+          mode: LOCAL
+          expiration:
+            lifespan: 60000
+          memory:
+            size: 100
+        userCache:
+          mode: REPL
+          expiration:
+            lifespan: 120000
+          memory:
+            size: 200
+
+# Enable logging for reactive behavior if necessary
+logging:
+  level:
+    org.springframework.data.r2dbc: DEBUG
+
