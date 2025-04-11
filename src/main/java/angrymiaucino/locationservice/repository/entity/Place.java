@@ -13,8 +13,10 @@ public class Place {
     private String description;
     private Double latitude;
     private Double longitude;
+    private Object geolocation;  // This will hold the PostGIS Geometry object
 
-    // GeometryFactory instance used to create geometries
+    // Constructors
+    public Place() {}
 
     public Place(String name, String description, Double latitude, Double longitude) {
         this.name = name;
@@ -23,8 +25,7 @@ public class Place {
         this.longitude = longitude;
     }
 
-
-    // Other getters and setters for non-converted fields
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -63,5 +64,13 @@ public class Place {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Object getGeolocation() {
+        return geolocation;
+    }
+
+    public void setGeolocation(Object geolocation) {
+        this.geolocation = geolocation;
     }
 }

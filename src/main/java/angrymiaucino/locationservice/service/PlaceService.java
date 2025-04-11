@@ -29,6 +29,6 @@ public class PlaceService {
     public Mono<Place> createPlace(String name, String description, Double lat, Double lng) {
 
         Place place = new Place(name, description, lat, lng);
-        return placeRepository.save(place);
+        return placeRepository.savePlaceWithGeolocation(place);
     }
 }
