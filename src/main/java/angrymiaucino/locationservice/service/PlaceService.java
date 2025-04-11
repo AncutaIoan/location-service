@@ -2,12 +2,6 @@ package angrymiaucino.locationservice.service;
 
 import angrymiaucino.locationservice.repository.PlaceRepository;
 import angrymiaucino.locationservice.repository.entity.Place;
-//import org.locationtech.jts.geom.Coordinate;
-//import org.locationtech.jts.geom.GeometryFactory;
-//import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -33,10 +27,8 @@ public class PlaceService {
     }
 
     public Mono<Place> createPlace(String name, String description, Double lat, Double lng) {
-        GeometryFactory geometryFactory = new GeometryFactory();
-        Point location = geometryFactory.createPoint(new Coordinate(lat, lng));
 
-        Place place = new Place(name, description, lat, lng, location);
+        Place place = new Place(name, description, lat, lng);
         return placeRepository.save(place);
     }
 }

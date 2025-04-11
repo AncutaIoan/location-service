@@ -1,37 +1,30 @@
 package angrymiaucino.locationservice.repository.entity;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.time.LocalDateTime;
-
-@Table("place")
+@Table
 public class Place {
 
     @Id
     private Long id;
-
     private String name;
     private String description;
     private Double latitude;
     private Double longitude;
-    private LocalDateTime createdAt;
-    private Point location;  // This will hold the JTS Point object
 
+    // GeometryFactory instance used to create geometries
 
-    public Place() {}
-
-    public Place(String name, String description, Double latitude, Double longitude, Point location) {
+    public Place(String name, String description, Double latitude, Double longitude) {
         this.name = name;
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.createdAt = LocalDateTime.now();
     }
 
+
+    // Other getters and setters for non-converted fields
     public Long getId() {
         return id;
     }
@@ -70,29 +63,5 @@ public class Place {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-
-    // Helper methods to convert latitude and longitude to Point
-    public void updateLocationFromCoordinates() {
-        if (latitude != null && longitude != null) {
-            this.location = new GeometryFactory().createPoint(new Coordinate(longitude, latitude));
-        }
-    }
-
-    // Helper method to update latitude and longitude from Point
-    public void updateCoordinatesFromLocation() {
-        if (location != null) {
-            this.latitude = location.getY();  // Latitude is the Y coordinate
-            this.longitude = location.getX(); // Longitude is the X coordinate
-        }
     }
 }
