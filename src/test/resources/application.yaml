@@ -1,16 +1,36 @@
 spring:
   application:
     name: location-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/mydatabase
-    username: myuser
-    password: mypassword
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 12345
+    pool:
+      initial-size: 10
+      max-size: 20
+
+  infinispan:
+    embedded:
+      enabled: true
+      reactive: true
+      cache:
+        locationCache:
+          mode: LOCAL
+          expiration:
+            lifespan: 60000
+          memory:
+            size: 100
+        userCache:
+          mode: REPL
+          expiration:
+            lifespan: 120000
+          memory:
+            size: 200
+
+logging:
+  level:
+    org.springframework.data.r2dbc: DEBUG
+    org.springframework.cache: DEBUG
+    org.infinispan: DEBUG
+    angrymiaucino.locationservice.service.PlaceService: DEBUG

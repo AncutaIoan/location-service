@@ -2,7 +2,6 @@ spring:
   application:
     name: location-service
 
-  # R2DBC Configuration for reactive PostgreSQL database
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/postgres
     username: postgres
@@ -11,10 +10,10 @@ spring:
       initial-size: 10
       max-size: 20
 
-  # Infinispan Cache Configuration (this stays the same for reactive)
   infinispan:
     embedded:
       enabled: true
+      reactive: true
       cache:
         locationCache:
           mode: LOCAL
@@ -29,8 +28,9 @@ spring:
           memory:
             size: 200
 
-# Enable logging for reactive behavior if necessary
 logging:
   level:
     org.springframework.data.r2dbc: DEBUG
-
+    org.springframework.cache: DEBUG
+    org.infinispan: DEBUG
+    angrymiaucino.locationservice.service.PlaceService: DEBUG
