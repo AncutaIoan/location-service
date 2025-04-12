@@ -4,6 +4,7 @@ import angrymiaucino.locationservice.repository.entity.Place;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -27,4 +28,9 @@ public interface PlaceRepository extends R2dbcRepository<Place, Long> {
            RETURNING id, name, description, latitude, longitude, location
            """)
     Mono<Place> updatePlaceWithGeolocation(Place place);
+
+    @Query("SELECT * FROM place " +
+            "WHERE ST_DWithin(location, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326), :radius)")
+    Flux<Place> findPlacesNear(double latitude, double longitude, double radius);
+
 }

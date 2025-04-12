@@ -10,6 +10,7 @@ type Place {
 type Query {
     allPlaces: [Place]
     placeById(id: ID!): Place
+    placesNear(latitude: Float!, longitude: Float!, radius: Float!): [Place]
 }
 
 type Mutation {

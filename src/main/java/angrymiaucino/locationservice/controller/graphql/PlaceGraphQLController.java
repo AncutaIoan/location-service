@@ -37,4 +37,13 @@ public class PlaceGraphQLController {
     ) {
         return placeService.createPlace(name, description, latitude, longitude);
     }
+
+    @QueryMapping
+    public Flux<Place> placesNear(
+                @Argument Double latitude,
+                @Argument Double longitude,
+                @Argument Double radius
+    ) {
+        return placeService.findPlacesNear(latitude, longitude, radius);
+    }
 }

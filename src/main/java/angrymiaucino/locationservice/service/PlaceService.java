@@ -33,6 +33,10 @@ public class PlaceService {
         return placeRepository.findById(id).switchIfEmpty(Mono.error(new RuntimeException("Place with id " + id + " not found")));
     }
 
+    public Flux<Place> findPlacesNear(double latitude, double longitude, double radius) {
+        return placeRepository.findPlacesNear(latitude, longitude, radius);
+    }
+
     public Mono<Place> createPlace(String name, String description, Double lat, Double lng) {
 
         Place place = new Place(name, description, lat, lng);
