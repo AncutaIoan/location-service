@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.Collection;
+import java.util.function.Supplier;
 
 public class RedisCacheProxy<K, V> {
 
@@ -101,7 +102,7 @@ public class RedisCacheProxy<K, V> {
                 });
     }
 
-    public Mono<V> cached(K key, java.util.function.Supplier<Mono<V>> supplier) {
+    public Mono<V> cached(K key, Supplier<Mono<V>> supplier) {
         return get(key)
                 .flatMap(cachedValue -> {
                     log.debug("[{}]: Using cached value for key=<{}>", name(), key);

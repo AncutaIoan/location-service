@@ -37,3 +37,4 @@ logging:
     org.springframework.data.r2dbc: DEBUG
     org.springframework.cache: DEBUG
     angrymiaucino.locationservice.service.PlaceService: DEBUG
+    angrymiaucino.locationservice.config.cache.RedisCacheProxy: DEBUG
