@@ -29,6 +29,13 @@ spring:
         PLACES_BY_ID:
           cache-name: LOCATION:PLACES_BY_ID
           expiryPolicy: PT24H
+      bloom-filters:
+        bloom-properties:
+          USER_NAME:
+            name: LOCATION:USERNAME_BLOOM
+            expected-items: 1000
+            false-positives-rate: 0.03
+
 
 
 

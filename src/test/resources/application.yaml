@@ -24,5 +24,15 @@ spring:
       port: 6379
       cache-properties:
         USERS_BY_ID:
-          cache-name: PRODUCT:FAVORITE_PRODUCT_IDS_BY_CUSTOMER_ID
+          cache-name: LOCATION:USERS_BY_ID
           expiryPolicy: PT24H
+        PLACES_BY_ID:
+          cache-name: LOCATION:PLACES_BY_ID
+          expiryPolicy: PT24H
+      bloom-filters:
+        bloom-properties:
+          USER_NAME:
+            name: LOCATION:USERNAME_BLOOM
+            expected-items: 1000
+            false-positives-rate: 0.03
+

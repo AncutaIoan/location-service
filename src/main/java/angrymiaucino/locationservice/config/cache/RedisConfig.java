@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.redisson.Redisson;
+import org.redisson.api.RBloomFilterReactive;
 import org.redisson.api.RedissonReactiveClient;
 import org.redisson.codec.TypedJsonJacksonCodec;
 import org.redisson.config.Config;
@@ -52,6 +53,16 @@ public class RedisConfig {
     public RedisCacheProxy<Long, Place> placeCache(RedissonReactiveClient client, RedisCacheProperties props) {
         return createCache(PLACES_BY_ID, client, props, new TypeReference<Long>() {}, new TypeReference<Place>() {});
     }
+
+    // Adding a Bloom Filter for caching
+    @Bean
+    public RBloomFilterReactive<Long> placeCacheBloomFilter(RedissonReactiveClient client) {
+        RBloomFilterReactive<Long> bloomFilter = client.getBloomFilter("placeCacheBloomFilter");
+        bloomFilter.tryInit(1000, 0.03).subscribe();
+
+        return bloomFilter;
+    }
+
 
     @Bean
     public Map<RedisCacheName, RedisCacheProxy<?, ?>> redisCaches(
