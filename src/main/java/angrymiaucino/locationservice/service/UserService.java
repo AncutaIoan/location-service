@@ -38,7 +38,7 @@ public class UserService {
     }
 
     public Mono<UserDTO> saveUser(CreateUserRequest createUserRequest) {
-        User user = new User(createUserRequest.username(), createUserRequest.email(), passwordEncoder.encode(createUserRequest.password()));
+        User user = new User(createUserRequest, passwordEncoder.encode(createUserRequest.password()));
 
         return userRepository.save(user)
                 .map(u -> new UserDTO(u.getId(), u.getUsername(), u.getEmail()));
