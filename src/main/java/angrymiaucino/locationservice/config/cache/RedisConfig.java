@@ -54,15 +54,6 @@ public class RedisConfig {
         return createCache(PLACES_BY_ID, client, props, new TypeReference<Long>() {}, new TypeReference<Place>() {});
     }
 
-    // Adding a Bloom Filter for caching
-    @Bean
-    public RBloomFilterReactive<Long> placeCacheBloomFilter(RedissonReactiveClient client) {
-        RBloomFilterReactive<Long> bloomFilter = client.getBloomFilter("placeCacheBloomFilter");
-        bloomFilter.tryInit(1000, 0.03).subscribe();
-
-        return bloomFilter;
-    }
-
 
     @Bean
     public Map<RedisCacheName, RedisCacheProxy<?, ?>> redisCaches(
