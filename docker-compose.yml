@@ -6,3 +6,9 @@ services:
     container_name: postgres_db
     ports:
       - "5432:5432"
+  redis-stack:
+    image: redis/redis-stack-server:latest
+    container_name: redis-stack
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
