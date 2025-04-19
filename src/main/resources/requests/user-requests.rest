@@ -2,10 +2,21 @@ POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "username": "john_doe",
-  "email": "john.doe@example.com",
-  "password": "securePassword123"
+  "username": "john_doe2",
+  "email": "john.doe3@example.com",
+  "password": "securePassword123",
+  "latitude": 44.4268,
+  "longitude": 26.1025
 }
+
 
 ###
 GET http://localhost:8080/users
+
+###
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{
+  "query": "{ nearbyUsers(latitude: 44.4268, longitude: 26.1025, radius: 5000) { id username email } }"
+}

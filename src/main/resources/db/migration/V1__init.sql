@@ -15,5 +15,6 @@ CREATE TABLE IF NOT EXISTS users (
                                      email VARCHAR(255) NOT NULL,
                                      password VARCHAR(255) NOT NULL,
                                      latitude DOUBLE PRECISION NOT NULL,
-                                     longitude DOUBLE PRECISION NOT NULL
+                                     longitude DOUBLE PRECISION NOT NULL,
+                                     location GEOGRAPHY(Point, 4326)
 );

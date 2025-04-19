@@ -1,6 +1,7 @@
 package angrymiaucino.locationservice.service;
 
 import angrymiaucino.locationservice.common.dto.CreateUserRequest;
+import angrymiaucino.locationservice.common.dto.NearbyUsersRequest;
 import angrymiaucino.locationservice.common.dto.UserDTO;
 import angrymiaucino.locationservice.repository.UserRepository;
 import angrymiaucino.locationservice.repository.entity.User;
@@ -40,8 +41,13 @@ public class UserService {
     public Mono<UserDTO> saveUser(CreateUserRequest createUserRequest) {
         User user = new User(createUserRequest, passwordEncoder.encode(createUserRequest.password()));
 
-        return userRepository.save(user)
+        return userRepository.saveWithLocation(user)
                 .map(u -> new UserDTO(u.getId(), u.getUsername(), u.getEmail()));
+    }
+
+    public Flux<UserDTO> findNearbyUsers(NearbyUsersRequest nearbyUsersRequest) {
+        return userRepository.findNearbyUsers(nearbyUsersRequest.latitude(), nearbyUsersRequest.longitude(), nearbyUsersRequest.radius())
+                   .map(u -> new UserDTO(u.getId(), u.getUsername(), u.getEmail()));
     }
 
     public Mono<Void> deleteUser(Long id) {

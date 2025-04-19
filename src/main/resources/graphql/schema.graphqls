@@ -11,6 +11,14 @@ type Query {
     allPlaces: [Place]
     placeById(id: ID!): Place
     placesNear(latitude: Float!, longitude: Float!, radius: Float!): [Place]
+    nearbyUsers(latitude: Float!, longitude: Float!, radius: Float!): [User]
+
+}
+
+type User {
+    id: ID!
+    username: String!
+    email: String!
 }
 
 type Mutation {
