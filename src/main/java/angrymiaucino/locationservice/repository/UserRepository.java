@@ -7,7 +7,6 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface UserRepository extends R2dbcRepository<User, Long> {
-    // You can add custom query methods here if needed, e.g. findByUsername or findByEmail
     Mono<User> findByUsername(String username);
     Mono<User> findByEmail(String email);
 }
