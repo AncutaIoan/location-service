@@ -13,10 +13,10 @@ public interface UserRepository extends R2dbcRepository<User, Long> {
     Mono<User> findByUsername(String username);
     Mono<User> findByEmail(String email);
     @Query("""
-        SELECT * FROM users 
+        SELECT * FROM users
         WHERE ST_DWithin(
-            location, 
-            ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography, 
+            location,
+            ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography,
             :radius
         )
     """)
@@ -30,4 +30,12 @@ public interface UserRepository extends R2dbcRepository<User, Long> {
     """)
     Mono<User> saveWithLocation(@Param("user") User user);
 
+    @Query("""
+    SELECT username FROM users
+    ORDER BY id
+    OFFSET :offset LIMIT :limit
+    """)
+    Flux<String> findUsernamesBy(@Param("offset") int offset, @Param("limit") int limit);
+
+    Mono<Boolean> existsByUsername(String username);
 }

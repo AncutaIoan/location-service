@@ -43,4 +43,9 @@ public class UserController {
     public Mono<Void> deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
     }
+
+    @GetMapping("/exists/{username}")
+    public Mono<Boolean> existsUser(@PathVariable String username) {
+        return userService.doesUsernameExist(username);
+    }
 }

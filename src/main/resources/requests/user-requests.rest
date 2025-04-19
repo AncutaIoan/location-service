@@ -2,7 +2,7 @@ POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "username": "john_doe2",
+  "username": "john_doe3",
   "email": "john.doe3@example.com",
   "password": "securePassword123",
   "latitude": 44.4268,
@@ -14,9 +14,13 @@ Content-Type: application/json
 GET http://localhost:8080/users
 
 ###
+GET http://localhost:8080/users/exists/john_doe20
+
+###
 POST http://localhost:8080/graphql
 Content-Type: application/json
 
 {
   "query": "{ nearbyUsers(latitude: 44.4268, longitude: 26.1025, radius: 5000) { id username email } }"
 }
+
