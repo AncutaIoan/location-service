@@ -31,9 +31,9 @@ public interface UserRepository extends R2dbcRepository<User, Long> {
     Mono<User> saveWithLocation(@Param("user") User user);
 
     @Query("""
-    SELECT username FROM users
-    ORDER BY id
-    OFFSET :offset LIMIT :limit
+        SELECT username FROM users
+        ORDER BY id
+        OFFSET :offset LIMIT :limit
     """)
     Flux<String> findUsernamesBy(@Param("offset") int offset, @Param("limit") int limit);
 
