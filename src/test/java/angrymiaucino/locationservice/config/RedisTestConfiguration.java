@@ -9,6 +9,7 @@ import org.redisson.api.RMapCacheReactive;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.Map;
 import static org.mockito.Mockito.mock;
 
 @TestConfiguration
+@Profile("test")
 public class RedisTestConfiguration {
 
     @Bean("userDTOCache")

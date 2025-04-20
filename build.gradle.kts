@@ -36,18 +36,17 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
 
-
-    // Caching library (Infinispan)
-//    implementation("org.infinispan:infinispan-core:15.2.1.Final")
-//    implementation("org.infinispan:infinispan-spring-boot3-starter-embedded:15.2.1.Final")
-//    implementation("org.infinispan:infinispan-spring-boot-starter-embedded:14.0.34.Final") // sth weird about this, doesnt work to create an application level cache manager?
-    // Caching Library (Redis) changed from infinispan due to spikes during indexing + bloom filter impl
+    // Caching library (Redis)
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
     implementation("org.redisson:redisson:3.44.0")
 
     // Test dependencies
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // Testcontainers dependencies
+    testImplementation("org.testcontainers:testcontainers:1.17.6") // Core Testcontainers library
+    testImplementation("org.testcontainers:postgresql:1.17.6") // PostgreSQL Testcontainers module
 }
 
 
