@@ -8,7 +8,5 @@ class LocationServiceApplicationTests {
 
     @Test
     void contextLoads() {
-        //checks only if application loads
     }
-
 }
