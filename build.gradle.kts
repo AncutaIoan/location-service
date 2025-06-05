@@ -36,7 +36,6 @@ dependencies {
     // Caching library (Infinispan)
     implementation("org.infinispan:infinispan-core:15.2.1.Final")
     implementation("org.infinispan:infinispan-spring-boot3-starter-embedded:15.2.1.Final")
-    // implementation("org.infinispan:infinispan-spring-boot-starter-embedded:14.0.34.Final") // sth weird about this, doesnt work to create an application level cache manager?
 
     // Test dependencies
     testImplementation("org.springframework.boot:spring-boot-starter-test")
