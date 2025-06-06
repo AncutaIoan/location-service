@@ -9,5 +9,4 @@ class LocationServiceApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

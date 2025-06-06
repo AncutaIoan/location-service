@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "spring.flyway.repair-required",
+      "type": "java.lang.Boolean",
+      "description": "Specifies whether Flyway should attempt a repair before applying migrations. If set to 'true', Flyway will automatically call `repair()` to fix issues like checksum mismatches or failed migrations before proceeding. Useful in environments where database migration integrity must be enforced proactively."
+    }
+  ]
+}

@@ -9,28 +9,39 @@ spring:
     pool:
       initial-size: 10
       max-size: 20
+  flyway:
+    url: jdbc:postgresql://localhost:5432/postgres
+    user: ${spring.r2dbc.username}
+    password: ${spring.r2dbc.password}
+    baseline-on-migrate: true
+    repair-required: true
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
+    redis:
+      host: localhost
+      port: 6379
+      cache-properties:
+        USERS_BY_ID:
+          cache-name: LOCATION:USERS_BY_ID
+          expiryPolicy: PT24H
+        PLACES_BY_ID:
+          cache-name: LOCATION:PLACES_BY_ID
+          expiryPolicy: PT24H
+      bloom-filters:
+        bloom-properties:
+          USER_NAME:
+            name: LOCATION:USERNAME_BLOOM
+            expected-items: 1000
+            false-positives-rate: 0.03
 
-  infinispan:
-    embedded:
-      enabled: true
-      reactive: true
-      cache:
-        locationCache:
-          mode: LOCAL
-          expiration:
-            lifespan: 60000
-          memory:
-            size: 100
-        userCache:
-          mode: REPL
-          expiration:
-            lifespan: 120000
-          memory:
-            size: 200
+
+
 
 logging:
   level:
     org.springframework.data.r2dbc: DEBUG
     org.springframework.cache: DEBUG
-    org.infinispan: DEBUG
     angrymiaucino.locationservice.service.PlaceService: DEBUG
+    angrymiaucino.locationservice.config.cache.RedisCacheProxy: DEBUG

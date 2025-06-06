@@ -9,6 +9,15 @@ Content-Type: application/json
 POST http://localhost:8080/graphql
 Content-Type: application/json
 
+{
+  "query": "{ placeById(id: 1) { id name } }"
+}
+
+
+###
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
 { "query": "{ allPlaces { id name description latitude longitude createdAt } }" }
 
 ###

@@ -1,5 +1,6 @@
 package angrymiaucino.locationservice.repository.entity;
 
+import angrymiaucino.locationservice.common.dto.CreateUserRequest;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -12,6 +13,8 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private double latitude;
+    private double longitude;
 
     public User() {
     }
@@ -20,6 +23,14 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(CreateUserRequest createUserRequest, String password) {
+        this.username = createUserRequest.username();
+        this.email = createUserRequest.email();
+        this.password = password;
+        this.latitude = createUserRequest.latitude();
+        this.longitude = createUserRequest.longitude();
     }
 
     public Long getId() {
@@ -54,12 +65,31 @@ public class User {
         this.password = password;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 '}';
     }
 }

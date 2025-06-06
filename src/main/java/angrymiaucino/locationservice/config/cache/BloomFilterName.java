@@ -1,6 +1,5 @@
 package angrymiaucino.locationservice.config.cache;
 
-public enum CacheMode {
-    LOCAL,
-    REPL
+public enum BloomFilterName {
+    USER_NAME
 }

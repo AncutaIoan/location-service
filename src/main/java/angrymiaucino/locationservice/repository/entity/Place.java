@@ -4,7 +4,7 @@ package angrymiaucino.locationservice.repository.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table
+@Table("places")
 public class Place {
 
     @Id
